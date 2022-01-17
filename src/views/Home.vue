@@ -1,6 +1,11 @@
 <template>
-  <div class="container mx-20">
-    <Card title="Its my heading" description="Lorel ip"/>
+  <div class="container mx-auto">
+    <h1 class="text-center text-3xl uppercase text-gray-700 my-10">Latest Products</h1>
+    <div class="flex p-5">
+      <div v-for="product in data" :key="product.id">
+       <Card :title=product.title :description=product.description :image=product.photo_url :price=product.price />
+     </div>
+    </div>
   </div>
 </template>
 
@@ -13,7 +18,7 @@ export default {
   name: 'Home',
   data(){
     return {
-      data: []
+      data:[]
     }
   },
   components: {
@@ -23,7 +28,7 @@ export default {
     async getData(){
       await axios.get(`http://127.0.0.1:8000/`).then((res) => {
         res.data.map((e) => {
-          this.data.append(e)
+          this.data.push(e)
         })
       })
     }
